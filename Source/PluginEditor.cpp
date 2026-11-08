@@ -156,7 +156,7 @@ void TrioAudioProcessorEditor::timerCallback()
     constexpr float dt = 1.0f / 60.0f;
     // Pegelreduktion: Zeiger steht ohne Kompression auf 0 VU und wandert nach links
     for (int b = 0; b < 3; ++b)
-        vus[(size_t) b]->update (juce::Decibels::decibelsToGain (-proc.grDb[(size_t) b].load() - 18.0f) / 1.1107f, 0.0f, dt);
+        { vus[(size_t) b]->setRestAtZeroVu (true); vus[(size_t) b]->update (juce::Decibels::decibelsToGain (-proc.grDb[(size_t) b].load() - 18.0f) / 1.1107f, 0.0f, dt); }
 
     if (presetBox.getSelectedId() != proc.getCurrentProgram() + 1)
         presetBox.setSelectedId (proc.getCurrentProgram() + 1, juce::dontSendNotification);
